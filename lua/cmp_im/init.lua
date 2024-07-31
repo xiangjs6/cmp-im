@@ -76,12 +76,12 @@ local function match_tbls(params)
                         if i >= 2 then
                             res[#res + 1] = cmp_item(kvs[1], v, params)
                             cnt = cnt + 1
-                            if cnt >= im_opts.maxn then
+                            if im_opts.maxn > 0 and cnt >= im_opts.maxn then
                                 break
                             end
                         end
                     end
-                until cnt >= im_opts.maxn
+                until im_opts.maxn > 0 and cnt >= im_opts.maxn
             end
         else
             -- A brute force match that still provides a pretty acceptable performance!(Yes, luajit)
@@ -90,7 +90,7 @@ local function match_tbls(params)
                     cnt = cnt + 1
                     res[#res + 1] = cmp_item(kv[1], kv[2], params)
                 end
-                if cnt >= im_opts.maxn then
+                if im_opts.maxn > 0 and cnt >= im_opts.maxn then
                     break
                 end
             end
